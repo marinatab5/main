@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Интерактивный фон с кнопками</title>
+    <style>
+        /* Сброс стандартных отступов */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Основной контейнер занимает весь экран */
+        .background-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh; /* Занимает минимум всю высоту экрана */
+            background-image: url(https://detsad-shop.ru/images/detailed/115/11__1__7gt5-s2.JPG
+');
+
+            background-size: cover; /* Растягивает картинку на весь блок */
+            background-position: center; /* Центрирует изображение */
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        /* Стили для кнопок */
+        .map-button {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            z-index: 10;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .map-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Цветовые схемы для разных типов действий (опционально) */
+        .btn-primary { background-color: #007bff; } /* Синий */
+        .btn-success { background-color: #28a745; } /* Зеленый */
+        .btn-danger { background-color: #dc3545; } /* Красный */
+
+        /* Адаптивность: на мобильных экранах кнопки становятся крупнее и проще */
+        @media (max-width: 768px) {
+            .map-button {
+                padding: 14px 24px;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="background-container">
+    <!-- Пример 1: Кнопка в левом верхнем углу -->
+    <a href="#" class="map-button btn-primary" style="top: 15%; left: 10%;" onclick="event.preventDefault(); alert('Вы нажали кнопку «О нас»');">
+        О нас
+    </a>
+
+    <!-- Пример 2: Кнопка по центру справа -->
+    <a href="#" class="map-button btn-success" style="top: 50%; right: 10%; transform: translateY(-50%);" onclick="event.preventDefault(); alert('Вы нажали кнопку «Контакты»');">
+        Контакты
+    </a>
+
+    <!-- Пример 3: Кнопка в правом нижнем углу -->
+    <a href="#" class="map-button btn-danger" style="bottom: 15%; right: 10%;" onclick="event.preventDefault(); alert('Вы нажали кнопку «Регистрация»');">
+        Регистрация
+    </a>
+    
+    <!-- Пример 4: Кнопка слева по центру -->
+    <a href="#" class="map-button btn-primary" style="left: 10%; top: 50%; transform: translateY(-50%);" onclick="event.preventDefault(); alert('Вы нажали кнопку «Услуги»');">
+        Услуги
+    </a>
+</div>
+
+<script>
+    // Функция-обертка для удобства назначения действий
+    function setButtonAction(selector, action) {
+        const button = document.querySelector(selector);
+        if (button) {
+            button.addEventListener('click', event => {
+                event.preventDefault();
+                action();
+            });
+        }
+    }
+
+    // Назначение действий через JS вместо inline-onclick (для чистоты кода)
+    setButtonAction('.btn-primary:nth-of-type(1)', () => alert('Переход в раздел «О нас»'));
+    setButtonAction('.btn-success', () => window.location.href = 'mailto:info@example.com');
+    setButtonAction('.btn-danger', () => window.location.href = '/register');
+    setButtonAction('.btn-primary:nth-of-type(2)', () => console.log('Кнопка "Услуги" нажата'));
+</script>
